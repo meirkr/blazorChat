@@ -22,6 +22,7 @@ FROM nginx:alpine as final
 #COPY nginx.conf /etc/nginx/nginx.conf
 ## Remove default nginx website
 RUN rm -rf /usr/share/nginx/html/*
+
 ## From ‘builder’ stage copy over the artifacts in dist folder to default nginx public folder
 COPY --from=builder /app/out/blazorChat/dist /usr/share/nginx/html/
 RUN ls -l /usr/share/nginx/html/
