@@ -1,3 +1,7 @@
+.history/
+
+
+
 *.swp
 *.*~
 project.lock.json
