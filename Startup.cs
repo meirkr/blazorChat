@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Components.Builder;
 using Microsoft.Extensions.DependencyInjection;
+using Blazor.Extensions;
 
 namespace blazorChat
 {
@@ -7,6 +8,7 @@ namespace blazorChat
     {
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddTransient<HubConnectionBuilder>();
         }
 
         public void Configure(IComponentsApplicationBuilder app)

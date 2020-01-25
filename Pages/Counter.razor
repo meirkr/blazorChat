@@ -1,4 +1,6 @@
-﻿@page "/counter"
+﻿@using Blazor.Extensions
+
+@page "/counter"
 
 <h1>Counter</h1>
 
@@ -6,11 +8,72 @@
 
 <button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
 
+<p><input type="text" @bind="_myName" /></p>
+<p><input type="text" @bind="_myMsg" /></p>
+<button class="btn btn-primary" @onclick="SendMsg">Send...</button>
+
+<p>User: @_user wote message: @_msg</p>
+
 @code {
+
     private int currentCount = 0;
+    private string _myName = "_myName";
+    private string _myMsg = "_myMsg";
+    private string _user = "usr";
+    private string _msg = "msg";
+
+    HubConnection hub;
+
+    [Inject]
+    private HubConnectionBuilder _hubConnectionBuilder { get; set; }
 
     private void IncrementCount()
     {
         currentCount++;
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        hub = _hubConnectionBuilder // the injected one from above.
+        .WithUrl("http://localhost:5000/chat",
+            opt =>
+            {
+                opt.LogLevel = SignalRLogLevel.Trace; // Client log level
+                opt.Transport = HttpTransportType.WebSockets; // Which transport you want to use for this connection
+            })
+        .Build(); // Build the HubConnection
+
+
+
+        hub.On<string, string>("sendToAll", (user, msg) =>
+        {
+            _user = user;
+            _msg = msg;
+
+            base.StateHasChanged();
+            return Task.CompletedTask;
+
+        });
+
+        try
+        {
+            await hub.StartAsync();
+
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine("-------- Exception\n" + e);
+            _user = "error";
+            _msg = "error";
+
+            //            base.StateHasChanged();
+
+        }
+        await base.OnInitializedAsync();
+    }
+
+    private void SendMsg()
+    {
+        hub.InvokeAsync("sendToAll", _myName, _myMsg);
     }
 }
