@@ -12,16 +12,19 @@
 <p><input type="text" @bind="_myMsg" /></p>
 <button class="btn btn-primary" @onclick="SendMsg">Send...</button>
 
-<p>User: @_user wote message: @_msg</p>
+@foreach (var messagePair in ReversedMessages)
+    { 
+        <p>User: @messagePair.user  ----   @messagePair.msg</p>
+    }
+
 
 @code {
 
     private int currentCount = 0;
     private string _myName = "_myName";
     private string _myMsg = "_myMsg";
-    private string _user = "usr";
-    private string _msg = "msg";
-
+    List<(string user, string msg)> _messages = new List<(string user , string msg)>();
+    IEnumerable<(string user, string msg)> ReversedMessages => Enumerable.Reverse(_messages);
     HubConnection hub;
 
     [Inject]
@@ -47,8 +50,7 @@
 
         hub.On<string, string>("sendToAll", (user, msg) =>
         {
-            _user = user;
-            _msg = msg;
+            _messages.Add((user, msg));
 
             base.StateHasChanged();
             return Task.CompletedTask;
@@ -63,8 +65,8 @@
         catch (Exception e)
         {
             Console.WriteLine("-------- Exception\n" + e);
-            _user = "error";
-            _msg = "error";
+
+            _messages.Add(("errr", ""));
 
             //            base.StateHasChanged();
 
