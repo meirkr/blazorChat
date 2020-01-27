@@ -1,5 +1,5 @@
 # FROM mcr.microsoft.com/dotnet/core/sdk:3.0
-FROM mcr.microsoft.com/dotnet/core-nightly/sdk:3.1.100-preview3-alpine3.10 as builder
+FROM mcr.microsoft.com/dotnet/core/sdk:3.1 as builder
 
 WORKDIR /app
 
