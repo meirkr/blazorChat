@@ -1,0 +1,16 @@
+@* 
+<EditForm Model="@_message" OnValidSubmit="SendMsg">
+    <DataAnnotationsValidator />
+    <ValidationSummary /> *@
+
+    <p>User name<input type="text" @bind="_myName" /></p>
+    <p>Message to send:<input type="text" @bind="_myMsg" /></p>
+
+    <button class="btn btn-primary" @onclick="SendMsg">Send...</button>
+
+    @foreach (var messagePair in ReversedMessages)
+        { 
+            <p>User: @messagePair.user  ----   @messagePair.msg</p>
+        }
+
+@* </EditForm> *@
