@@ -21,11 +21,15 @@ namespace blazorChat.Components
 
         [Inject]
         private HubConnectionBuilder _hubConnectionBuilder { get; set; }
+        [Inject]
+        private NavigationManager NavigationManager { get; set; }
 
         protected override async Task OnInitializedAsync()
         {
+            var baseUri = NavigationManager.BaseUri;
             hub = _hubConnectionBuilder // the injected one from above.
-            .WithUrl("http://localhost:5000/chat",
+            //.WithUrl("http://localhost:5000/chat",
+            .WithUrl(baseUri + "/chat",
                 opt =>
                 {
                     opt.LogLevel = SignalRLogLevel.Trace; // Client log level
