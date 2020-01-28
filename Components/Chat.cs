@@ -13,9 +13,9 @@ namespace blazorChat.Components
         private Message _message = new Message();
 
 
-        private string _myName = "";
+        private string _myName = "user?";
         private string _myMsg = "";
-        public bool IsLoggedIn => !string.IsNullOrEmpty(_myName);
+        public bool WaitFoUserName => string.IsNullOrEmpty(_myName);
         List<(string user, string msg)> _messages = new List<(string user , string msg)>();
         IEnumerable<(string user, string msg)> ReversedMessages => Enumerable.Reverse(_messages);
         HubConnection hub;

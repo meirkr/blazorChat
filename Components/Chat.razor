@@ -9,7 +9,7 @@
     <p>User name<input type="text" @bind="_myName" /></p>
     <p>Message to send:<input type="text" @bind="_myMsg" /></p>
 
-    <button class="btn btn-primary" disabled="@IsLoggedIn==false" @onclick="SendMsg">Send...</button>
+    <button class="btn btn-primary" disabled="@WaitFoUserName" @onclick="SendMsg">Send...</button>
 
     @foreach (var messagePair in ReversedMessages)
         { 
