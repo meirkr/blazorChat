@@ -1,0 +1,28 @@
+version: '2'
+services:  
+  rp:
+    image: meirkr/signal_r_reverse_proxy
+    restart: always
+    networks:
+     - overlay
+    ports:
+     - "5000:80"
+    depends_on:
+     - frontend
+    restart: always
+  frontend:
+    image: meirkr/blazor_chat:latest
+    build: ./
+    networks:
+     - overlay
+    depends_on:
+     - backend
+    restart: always
+  backend:
+    image: meirkr/signal_r_chat_server
+    networks:
+     - overlay
+    restart: always
+
+networks:
+  overlay:
