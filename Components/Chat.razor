@@ -6,7 +6,7 @@
     <DataAnnotationsValidator />
     <ValidationSummary /> *@
 
-    <p>User name<input type="text" @bind="_myName" /></p>
+    <p>User name<input type="text" @bind="_myName" @bind:event="oninput" /></p>
     <p>Message to send:<input type="text" @bind="_myMsg" /></p>
 
     <button class="btn btn-primary" disabled="@WaitFoUserName" @onclick="SendMsg">Send...</button>
