@@ -5,6 +5,13 @@
 <EditForm Model="@_message" OnValidSubmit="SendMsg">
     <DataAnnotationsValidator />
     <ValidationSummary /> *@
+    <div>
+        <h1>latest features:</h1>
+        <ol>
+            <li>01/02/2020 - Send button is disabled immediately when user name is empty</li>
+        </ol>
+    </div>
+
 
     <p>User name<input type="text" @bind="_myName" @bind:event="oninput" /></p>
     <p>Message to send:<input type="text" @bind="_myMsg" /></p>
