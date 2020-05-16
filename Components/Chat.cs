@@ -6,12 +6,11 @@ using System.Collections.Generic;
 using Microsoft.AspNetCore.Components;
 using System.Threading.Tasks;
 
-namespace blazorChat.Components
+namespace BlazorChat.Components
 {
     public partial class Chat
     {
         private Message _message = new Message();
-
 
         private string _myName = "user?";
         private string _myMsg = "";
