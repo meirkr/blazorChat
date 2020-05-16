@@ -1,4 +1,3 @@
-# FROM mcr.microsoft.com/dotnet/core/sdk:3.0
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1 as builder
 
 WORKDIR /app
@@ -24,5 +23,5 @@ COPY nginx.conf /etc/nginx/nginx.conf
 WORKDIR /usr/share/nginx/html
 
 ## From ‘builder’ stage copy over the artifacts in dist folder to default nginx public folder
-COPY --from=builder /app/out/blazorChat/dist .
+COPY --from=builder /app/out/wwwroot .
 RUN ls -l /usr/share/nginx/html/
