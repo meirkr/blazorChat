@@ -7,10 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Blazor.Extensions.SignalR" Version="1.1.0-preview3" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="3.2.0-rc1.20223.4" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Build" Version="3.2.0-rc1.20223.4" PrivateAssets="all" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="3.2.0-rc1.20223.4" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="3.1.4" />
     <PackageReference Include="System.Net.Http.Json" Version="3.2.0-rc1.20217.1" />
   </ItemGroup>
 

@@ -1,10 +1,12 @@
 using blazorChat.Models;
-using Blazor.Extensions;
 using System;
 using System.Linq;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Components;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.SignalR.Client;
+using Microsoft.AspNetCore.Http.Connections;
+using Microsoft.Extensions.Logging;
 
 namespace BlazorChat.Components
 {
@@ -28,14 +30,15 @@ namespace BlazorChat.Components
         {
             var baseUri = NavigationManager.BaseUri;
             hub = _hubConnectionBuilder // the injected one from above.
-            //.WithUrl("http://localhost:5000/chat",
-            .WithUrl("/chat", // baseUri includes already '/'
-                opt =>
-                {
-                    opt.LogLevel = SignalRLogLevel.Trace; // Client log level
-                    opt.Transport = HttpTransportType.WebSockets; // Which transport you want to use for this connection
-                })
-            .Build(); // Build the HubConnection
+                .WithAutomaticReconnect()
+                //.WithUrl("http://localhost:5000/chat",
+                .WithUrl("/chat",
+                    opt =>
+                    {
+                        opt.Transports = HttpTransportType.WebSockets; // Which transport you want to use for this connection
+                    })
+                .ConfigureLogging(e => e.SetMinimumLevel(LogLevel.Warning))
+                .Build(); // Build the HubConnection
 
 
 
