@@ -29,15 +29,14 @@ namespace BlazorChat.Components
         protected override async Task OnInitializedAsync()
         {
             var baseUri = NavigationManager.BaseUri;
+            var hubUri = $"{baseUri}chat";
+            Console.WriteLine($"baseUri: {baseUri}, hubUri:{hubUri}");
+
             hub = _hubConnectionBuilder // the injected one from above.
                 .WithAutomaticReconnect()
-                //.WithUrl("http://localhost:5000/chat",
-                .WithUrl("/chat",
-                    opt =>
-                    {
-                        opt.Transports = HttpTransportType.WebSockets; // Which transport you want to use for this connection
-                    })
-                .ConfigureLogging(e => e.SetMinimumLevel(LogLevel.Warning))
+                //.WithUrl("http://localhost:5000/chat")
+                .WithUrl(hubUri)
+                .ConfigureLogging(e => e.SetMinimumLevel(LogLevel.Trace))
                 .Build(); // Build the HubConnection
 
 
